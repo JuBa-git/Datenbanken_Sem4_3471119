@@ -9,3 +9,9 @@ Matrikelnummer: 3471119
 * Datensatz als CSV über Python in Datenbank laden
 * Tool __Grafana__ zur Auswertung
   * Holt über Querys direkt die Daten von der Datenbank
+## Installation
+### Requirements
+* InfluxDB 1.8.4
+* Python version 3.8.5
+* Python Modul: pip install influxdb
+* Kaggle API Key
