@@ -25,8 +25,8 @@ Matrikelnummer: 3471119
 5. Server starten: z.B.: aus Homeverzeichnis: "PFAD/ZU/influxd run -config PFAD/ZU/influxdb.conf"
 6. "influx" im Verzeichnis "influxdb-VERSION" starten -> InfluxDB shell
 7. Darin eine Datenbank und einen User anlegen mit den Befehlen:
-  > CREATE DATABASE <myDB>
-  > CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
+    > CREATE DATABASE <myDB>
+    > CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
 9. Name der Datenbank, den Host "localhost", den User "admin" und das Passwort in die config.py übernehmen
 10. Python installieren und die Module influxdb und kaggle installieren: pip install influxdb kaggle
 11. kaggleToInflux.py ausführen z.B. mit: python kaggleToInflux.py
