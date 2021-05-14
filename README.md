@@ -13,10 +13,12 @@ Matrikelnummer: 3471119
 ### Requirements
 * Kaggle API Key
   * https://www.kaggle.com -> anmelden -> Profilbild -> "Account" -> "API" -> "Create New API Token" ---> downloads: kaggle.json
-* InfluxDB 1.8.4 oder neue 1.x
+* InfluxDB (verwendet: 1.8.4)
   * https://portal.influxdata.com/downloads/
-* Python version 3.8.5 oder neuer
+* Python (verwendet: 3.8.5)
   * https://www.python.org/downloads/
+* Grafana (verwendet: 7.5.6)
+  * https://grafana.com/grafana/download?pg=get&plcmt=selfmanaged-box1-cta1	 
 ### Anleitung
 1. Repo clonen:
 ```
@@ -46,3 +48,15 @@ pip install influxdb kaggle
 ```
 python kaggleToInflux.py
 ```
+11. Grafana: Website öffnen und mit "admin"/ "admin" anmelden:
+```
+http://localhost:3000/
+```
+12. Datenquelle angeben: (Menü) Configuration -> data source -> add data source -> InfluxDB
+* Name: ``` Impfungen@InfluxDB ```
+* URL: ``` http://localhost:8086 ```
+* Database: ``` INFLUX_DATABASE ```
+* User: ``` INFLUX_USER ```
+* Password: ``` INFLUX_USER_PASSWORD ```
+* HTTP Method: ``` GET ```
+* --> Save & Test
