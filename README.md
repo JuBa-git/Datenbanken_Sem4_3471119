@@ -60,3 +60,4 @@ http://localhost:3000/
 * Password: ``` INFLUX_USER_PASSWORD ```
 * HTTP Method: ``` GET ```
 * --> Save & Test
+13. Dashboard importieren: (Menü) Dashboards -> Manage -> Import -> Upload JSON file -> Vaccinations-Grafana.json -> DATENQUELLE auswählen -> Import
