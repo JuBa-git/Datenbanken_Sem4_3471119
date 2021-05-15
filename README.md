@@ -61,3 +61,5 @@ http://localhost:3000/
 * HTTP Method: ``` GET ```
 * --> Save & Test
 13. Dashboard importieren: (Menü) Dashboards -> Manage -> Import -> Upload JSON file -> Vaccinations-Grafana.json -> DATENQUELLE auswählen -> Import
+14. Fertig:
+![Grafana Dashboard](Grafana.PNG)
