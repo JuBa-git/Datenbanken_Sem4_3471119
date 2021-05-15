@@ -43,6 +43,7 @@ def getKaggleData(dataset, filename):
     False
     """
     try:
+        # login to kaggle with KAGGLE_USERNAME and KAGGLE_KEY
         my_api = KaggleApi()
         my_api.authenticate()
 
@@ -103,17 +104,38 @@ def insertData(db, filename):
     try:
         with open(filename) as f:
             c = csv.reader(f, delimiter=',')
+            prev_row = ""
+            prev_country = ""
             for row in c:
                 try:
-                    ts = int(datetime.strptime(row[2], "%Y-%m-%d").timestamp())
-                    if row[7] != "":
+                    # skip if row doesn't contain number of vaccinations
+                    if row[3] != "" and prev_row != "" and prev_country == row[0]:
+                        # transform date to InfluxDB timestamp
+                        dt = datetime.strptime(row[2], "%Y-%m-%d")
+                        ts = int(dt.timestamp())
+                        # change spaces to InfluxDB syntax
                         row[0] = row[0].replace(" ", "\\ ")
-                        line = f'impfungen,country={row[0]} vaccinations={row[7]} {ts}'
+                        daily_v = int(float(row[3])) - int(float(prev_row))
+                        line = f'impfungen,country={row[0]},weekday={dt.strftime("%A")} vaccinations={daily_v} {ts}'
                         data.append(line)
-                except:
-                    pass
+                    else:
+                        prev_country = row[0]
+                    prev_row = row[3]
+                except Exception as e:
+                    print(e)
         db.drop_measurement("impfungen")
+        # add data to InfluxDB
         db.write_points(data, protocol='line', time_precision='s')
+        # add weekdays to InfluxDB for weekday selection
+        my_list = [f'weekdays weekday="Monday" 1619733600',
+                   f'weekdays weekday="Tuesday" 1619820000',
+                   f'weekdays weekday="Wednesday" 1619906400',
+                   f'weekdays weekday="Thursday" 1619992800',
+                   f'weekdays weekday="Friday" 1620079200',
+                   f'weekdays weekday="Saturday" 1620165600',
+                   f'weekdays weekday="Sunday" 1620252000']
+        db.drop_measurement("weekdays")
+        db.write_points(my_list, protocol='line', time_precision='s')
         return True
     except Exception as e:
         print("Error: ", e)
